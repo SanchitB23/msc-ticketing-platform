@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-depl
+  labels:
+    app: auth-depl
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: auth
+      labels:
+        app: auth
+    spec:
+      containers:
+        - name: auth
+          image: sanchitb23/msc-ticketing-auth
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-clusterip-srv
+spec:
+  selector:
+    app: auth
+  ports:
+    - port: 3000
+      targetPort: 3000
+      name: auth
+      protocol: TCP
