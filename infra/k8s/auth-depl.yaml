@@ -16,6 +16,12 @@ spec:
         - name: auth
           image: sanchitb23/msc-ticketing-auth
           imagePullPolicy: IfNotPresent
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: JWT_KEY
+                  name: jwt-secret
       restartPolicy: Always
   selector:
     matchLabels:
