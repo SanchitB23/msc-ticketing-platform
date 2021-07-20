@@ -1,6 +1,5 @@
 import express from "express";
 import 'express-async-errors'
-import mongoose from "mongoose";
 
 import {currentUserRouter} from "./routes/current-user";
 import {signinRouter} from "./routes/signin";
@@ -16,7 +15,7 @@ app.set('trust proxy', true);
 app.use(express.json())
 app.use(cookieSession({
     signed: false,
-    secure: true,
+    secure: process.env.NODE_ENV !== 'test',
 }))
 /*
 * Routes
@@ -33,24 +32,4 @@ app.all('*', async (req, res, next) => {
 
 app.use(errorHandler)
 
-const start = async () => {
-    if (!process.env.JWT_KEY) {
-        throw new Error('JWT not found')
-    }
-    try {
-        await mongoose.connect('mongodb://auth-mongo-srv:27017/auth', {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true
-        })
-        console.log("Connected to Auth MongoDB")
-    } catch (e) {
-        console.error(e)
-    }
-    app.listen(3000, () => {
-        console.log("Auth Listening on Port 3000!")
-    })
-}
-
-start()
-    .then(() => console.log("Auth Server Started"))
+export {app}
