@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+  labels:
+    app: client-depl
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: client
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: sanchitb23/msc-ticketing-client
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: client
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app: client
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+      name: client
+  type: ClusterIP
