@@ -36,3 +36,19 @@ spec:
       name: auth-db
       protocol: TCP
   type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-node-srv
+spec:
+  selector:
+    app: auth-mongo
+  ports:
+    - port: 27017
+      protocol: TCP
+      name: auth-mongo-external
+      targetPort: 27017
+      nodePort: 30005
+  type: NodePort

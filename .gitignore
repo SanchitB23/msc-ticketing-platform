@@ -118,3 +118,4 @@ dist
 
 skaffold.exe
 .idea
+/common/
