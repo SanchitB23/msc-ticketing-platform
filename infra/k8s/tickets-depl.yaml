@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: tickets-depl
   labels:
-    app: auth-depl
+    app: tickets-depl
 spec:
   replicas: 1
   template:
     metadata:
-      name: auth
+      name: tickets
       labels:
-        app: auth
+        app: tickets
     spec:
       containers:
-        - name: auth
-          image: sanchitb23/msc-ticketing-auth
+        - name: tickets
+          image: sanchitb23/msc-ticketing-tickets
           imagePullPolicy: IfNotPresent
           env:
             - name: MONGO_URI
-              value: 'mongodb://auth-mongo-srv:27017/auth'
+              value: 'mongodb://tickets-mongo-srv:27017/tickets'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -27,17 +27,17 @@ spec:
       restartPolicy: Always
   selector:
     matchLabels:
-      app: auth
+      app: tickets
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-clusterip-srv
+  name: tickets-clusterip-srv
 spec:
   selector:
-    app: auth
+    app: tickets
   ports:
     - port: 3000
       targetPort: 3000
-      name: auth
+      name: tickets
       protocol: TCP

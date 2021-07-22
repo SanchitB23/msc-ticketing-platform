@@ -25,3 +25,11 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
+    - image: sanchitb23/msc-ticketing-tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
