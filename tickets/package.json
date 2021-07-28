@@ -27,7 +27,7 @@
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.4",
     "@types/mongoose": "^5.11.97",
-    "@msc-ticketing/common": "^1.1.1"
+    "@msc-ticketing/common": "^1.1.2"
   },
   "devDependencies": {
     "jest": "^27.0.6",
