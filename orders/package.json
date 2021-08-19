@@ -27,7 +27,7 @@
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.4",
     "@types/mongoose": "^5.11.97",
-    "@msc-ticketing/common": "^1.2.2",
+    "@msc-ticketing/common": "^1.2.3",
     "node-nats-streaming": "^0.3.2"
   },
   "devDependencies": {
