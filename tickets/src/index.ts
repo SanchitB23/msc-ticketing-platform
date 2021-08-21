@@ -19,7 +19,6 @@ const start = async () => {
     if (!process.env.NATS_URL) {
         throw new Error('NATS_URL not defined')
     }
-    try {
         //NATS Connect and Config
         await natsWrapper.connect(process.env.NATS_CLUSTER_ID, process.env.NATS_CLIENT_ID, process.env.NATS_URL)
         natsWrapper.client.on('close', () => {
@@ -28,6 +27,7 @@ const start = async () => {
         })
         process.on('SIGINT', () => natsWrapper.client.close())
         process.on('SIGTERM', () => natsWrapper.client.close())
+    try {
         //Mongoose Connect
         await mongoose.connect(process.env.MONGO_URI, {
             useNewUrlParser: true,
