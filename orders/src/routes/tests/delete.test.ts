@@ -5,10 +5,11 @@ import {Ticket} from "../../models/ticket";
 import {app} from "../../App";
 import {Order, OrderStatus} from "../../models/order";
 import {natsWrapper} from "../../nats-wrapper";
+import mongoose from "mongoose";
 
 it('should delete the order', async function () {
     const ticket = Ticket.build({
-        price: 20, title: "concert"
+        price: 20, title: "concert", id: mongoose.Types.ObjectId().toHexString()
     })
     await ticket.save()
     const user = global.signin()
@@ -29,7 +30,7 @@ it('should delete the order', async function () {
 
 it('should emit an order cancelled event', async function () {
     const ticket = Ticket.build({
-        price: 20, title: "concert"
+        price: 20, title: "concert", id: mongoose.Types.ObjectId().toHexString()
     })
     await ticket.save()
     const user = global.signin()
