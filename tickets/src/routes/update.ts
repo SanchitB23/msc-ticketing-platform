@@ -1,6 +1,6 @@
 import express, {Request, Response} from "express";
 import {Ticket} from "../models/ticket";
-import {NotAuthorizedError, NotFoundError, RequireAuth, ValidateRequest} from "@msc-ticketing/common";
+import {BadRequestError, NotAuthorizedError, NotFoundError, RequireAuth, ValidateRequest} from "@msc-ticketing/common";
 import {body} from "express-validator";
 import {natsWrapper} from "../nats-wrapper";
 import {TicketUpdatedPublisher} from "../events/publishers/ticket-updated-publisher";
@@ -23,6 +23,8 @@ router.put('/api/tickets/:id',
         const ticket = await Ticket.findById(req.params.id)
         if (!ticket)
             throw new NotFoundError()
+        if (ticket.orderId)
+            throw new BadRequestError('Cannot edit a reserved ticket')
         if (ticket.userId !== req.currentUser!.id)
             throw new NotAuthorizedError()
 

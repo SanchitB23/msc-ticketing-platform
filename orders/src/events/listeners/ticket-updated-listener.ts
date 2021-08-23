@@ -1,5 +1,5 @@
 import {Listener, Subjects, TicketUpdatedEvent} from "@msc-ticketing/common";
-import {qGroupName} from "../../constants/q-group-name";
+import {QUEUE_GROUP_NAME} from "../../constants";
 import {Message} from "node-nats-streaming";
 import {Ticket} from "../../models/ticket";
 
@@ -14,6 +14,6 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
         msg.ack()
     }
 
-    queueGroupName: string = qGroupName;
+    queueGroupName: string = QUEUE_GROUP_NAME;
     subject: TicketUpdatedEvent["subject"] = Subjects.TicketUpdated;
 }
