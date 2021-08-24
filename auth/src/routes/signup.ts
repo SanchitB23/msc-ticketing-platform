@@ -19,7 +19,7 @@ router.post('/api/auth/signup',
     ],
     ValidateRequest,
     async (req: Request, res: Response) => {
-        console.log("Creating User")
+        console.log("AUTH : Signup API Called")
         const {email, password} = req.body;
         const existingUser = await User.findOne({email})
 

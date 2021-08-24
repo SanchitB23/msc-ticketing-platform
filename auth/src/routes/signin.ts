@@ -19,6 +19,7 @@ router.post('/api/auth/signin', [
     ],
     ValidateRequest,
     async (req: Request, res: Response) => {
+        console.log("AUTH : Signin API Called")
         const {email, password} = req.body;
         const existingUser = await User.findOne({email})
         if (!existingUser) {

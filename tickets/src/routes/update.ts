@@ -20,6 +20,8 @@ router.put('/api/tickets/:id',
     ],
     ValidateRequest,
     async (req: Request, res: Response) => {
+            console.log("TICKETS : Update API Called")
+
         const ticket = await Ticket.findById(req.params.id)
         if (!ticket)
             throw new NotFoundError()

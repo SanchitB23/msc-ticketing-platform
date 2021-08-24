@@ -7,6 +7,7 @@ import {natsWrapper} from "../nats-wrapper";
 const router = express.Router()
 
 router.delete('/api/orders/:orderId', RequireAuth, async (req: Request, res: Response) => {
+    console.log("ORDERS : Delete API Called")
     const {orderId} = req.params;
     const order = await Order.findById(orderId)
 

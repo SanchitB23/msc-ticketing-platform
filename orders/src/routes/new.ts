@@ -20,6 +20,8 @@ router.post('/api/orders',
             .withMessage('TicketId must be provided')
     ],
     async (req: Request, res: Response) => {
+        console.log("ORDERS : New API Called")
+
         const {ticketId} = req.body;
         const ticket = await Ticket.findById(ticketId)
         if (!ticket)

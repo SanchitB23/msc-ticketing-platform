@@ -17,6 +17,8 @@ router.post('/api/tickets',
     ],
     ValidateRequest,
     async (req: Request, res: Response) => {
+            console.log("TICKETS : New API Called")
+
         const {title, price} = req.body;
 
         const ticket = Ticket.build({

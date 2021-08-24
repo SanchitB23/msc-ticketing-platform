@@ -4,6 +4,8 @@ import {Ticket} from "../models/ticket";
 const router = express.Router()
 
 router.get('/api/tickets', async (req: Request, res: Response) => {
+        console.log("TICKETS : Fetch All API Called")
+
     const tickets = await Ticket.find({})
     res.send(tickets)
 })
