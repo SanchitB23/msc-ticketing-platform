@@ -4,6 +4,7 @@ import {DatabaseConnectionError} from "@msc-ticketing/common";
 import {natsWrapper} from "./nats-wrapper";
 import {TicketCreatedListener} from "./events/listeners/ticket-created-listener";
 import {TicketUpdatedListener} from "./events/listeners/ticket-updated-listener";
+import {ExpirationCompleteListener} from "./events/listeners/expiration-complete-listener";
 
 const start = async () => {
     if (!process.env.JWT_KEY) {
@@ -32,6 +33,7 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close())
     new TicketCreatedListener(natsWrapper.client).listen()
     new TicketUpdatedListener(natsWrapper.client).listen()
+    new ExpirationCompleteListener(natsWrapper.client).listen()
     try {
         //Mongoose Connect
         await mongoose.connect(process.env.MONGO_URI, {
@@ -45,9 +47,9 @@ const start = async () => {
         throw new DatabaseConnectionError()
     }
     app.listen(3000, () => {
-        console.log("Tickets Listening on Port 3000!")
+        console.log("Orders Listening on Port 3000!")
     })
 }
 
 start()
-    .then(() => console.log("Tickets Server Started"))
+    .then(() => console.log("Orders Server Started"))
