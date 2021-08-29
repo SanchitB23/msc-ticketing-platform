@@ -10,7 +10,11 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
         const order = await Order.findById(data.orderId)
         if (!order)
             throw new Error('Order Not Found')
-        //todo manage payments complete thing
+
+        if (order.status === OrderStatus.Complete) {
+            return msg.ack()
+        }
+
         order.set({
             status: OrderStatus.Cancelled
         })

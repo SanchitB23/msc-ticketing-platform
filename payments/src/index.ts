@@ -39,15 +39,15 @@ const start = async () => {
             useUnifiedTopology: true,
             useCreateIndex: true
         })
-        console.log("Connected to Tickets MongoDB")
+        console.log("Connected to Payments MongoDB")
     } catch (e) {
         console.error(e)
         throw new DatabaseConnectionError()
     }
     app.listen(3000, () => {
-        console.log("Tickets Listening on Port 3000!")
+        console.log("Payments Listening on Port 3000!")
     })
 }
 
 start()
-    .then(() => console.log("Tickets Server Started"))
+    .then(() => console.log("Payments Server Started"))

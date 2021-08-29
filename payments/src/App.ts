@@ -2,6 +2,7 @@ import express from "express";
 import 'express-async-errors'
 import {CurrentUser, errorHandler, NotFoundError} from "@msc-ticketing/common";
 import cookieSession from "cookie-session";
+import {createChargeRouter} from "./routes/new";
 
 
 const app = express()
@@ -15,6 +16,7 @@ app.use(CurrentUser)
 /*
 * Routes
 */
+app.use(createChargeRouter)
 
 app.all('*', async (req, res, next) => {
     throw new NotFoundError()
