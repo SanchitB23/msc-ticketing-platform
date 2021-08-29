@@ -49,3 +49,12 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
+    - image: sanchitb23/msc-ticketing-payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+

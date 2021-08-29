@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-mongo-depl
+  labels:
+    app: payments-mongo-depl
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: payments-mongo
+      labels:
+        app: payments-mongo
+    spec:
+      containers:
+        - name: payments-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: payments-mongo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-mongo-srv
+spec:
+  selector:
+    app: payments-mongo
+  ports:
+    - port: 27017
+      targetPort: 27017
+      name: payments-db
+      protocol: TCP
+  type: ClusterIP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-mongo-node-srv
+spec:
+  selector:
+    app: payments-mongo
+  ports:
+    - port: 27017
+      protocol: TCP
+      name: payments-mongo-external
+      targetPort: 27017
+      nodePort: 30008
+  type: NodePort
