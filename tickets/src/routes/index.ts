@@ -4,9 +4,11 @@ import {Ticket} from "../models/ticket";
 const router = express.Router()
 
 router.get('/api/tickets', async (req: Request, res: Response) => {
-        console.log("TICKETS : Fetch All API Called")
+    console.log("TICKETS : Fetch All API Called")
 
-    const tickets = await Ticket.find({})
+    const tickets = await Ticket.find({
+        orderId: undefined
+    })
     res.send(tickets)
 })
 export {router as indexTicketRouter};
