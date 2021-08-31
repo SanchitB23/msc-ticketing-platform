@@ -3,6 +3,7 @@ import {app} from "./App";
 import {DatabaseConnectionError} from "@msc-ticketing/common";
 
 const start = async () => {
+    console.log("Starting Auth Service")
     if (!process.env.JWT_KEY) {
         throw new Error('JWT not found')
     }
